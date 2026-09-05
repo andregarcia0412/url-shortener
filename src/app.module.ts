@@ -1,8 +1,10 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { DatabaseModule } from './shared/database/database.module';
 import Joi from 'joi';
 import { LinkModule } from './modules/link/link.module';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -29,12 +31,31 @@ import { LinkModule } from './modules/link/link.module';
         MONGO_URI: Joi.string().uri().required(),
 
         BASE_URL: Joi.string().uri().required(),
+
+        THROTTLE_TTL: Joi.number().required(),
+        THROTTLE_LIMIT: Joi.number().required(),
       }),
+    }),
+    ThrottlerModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService) => ({
+        throttlers: [
+          {
+            ttl: configService.getOrThrow<number>('THROTTLE_TTL'),
+            limit: configService.getOrThrow<number>('THROTTLE_LIMIT'),
+          },
+        ],
+      }),
+      inject: [ConfigService],
     }),
     DatabaseModule,
     LinkModule,
   ],
-  controllers: [],
-  providers: [],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
+  ],
 })
 export class AppModule {}

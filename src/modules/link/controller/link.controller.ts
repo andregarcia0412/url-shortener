@@ -1,5 +1,6 @@
 import { Body, Controller, Get, Inject, Param, Post } from '@nestjs/common';
 import { ApiCreatedResponse, ApiOkResponse } from '@nestjs/swagger';
+import { Throttle } from '@nestjs/throttler';
 import { CreateLinkDto } from '../dto/create-link.dto';
 import { ReturnLinkDto } from '../dto/return-link.dto';
 import { LinkServicePort } from '../interface/link.service.port';
@@ -13,6 +14,7 @@ export class LinkController {
   ) {}
 
   @Post()
+  @Throttle({ default: { ttl: 60000, limit: 10 } })
   @ApiCreatedResponse({ type: ReturnLinkDto })
   async create(@Body() createLinkDto: CreateLinkDto): Promise<ReturnLinkDto> {
     return await this.linkService.create(createLinkDto);
