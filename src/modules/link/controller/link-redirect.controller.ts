@@ -1,0 +1,31 @@
+import {
+  Controller,
+  Get,
+  HttpRedirectResponse,
+  Inject,
+  Param,
+  Redirect,
+} from '@nestjs/common';
+import { ApiTemporaryRedirectResponse } from '@nestjs/swagger';
+import { LinkServicePort } from '../interface/link.service.port';
+import { ShortCodePipe } from '../pipe/short-code.pipe';
+
+@Controller()
+export class LinkRedirectController {
+  constructor(
+    @Inject(LinkServicePort)
+    private readonly linkService: LinkServicePort,
+  ) {}
+
+  @Get(':shortCode')
+  @Redirect()
+  @ApiTemporaryRedirectResponse()
+  async redirect(
+    @Param('shortCode', ShortCodePipe) shortCode: string,
+  ): Promise<HttpRedirectResponse> {
+    return {
+      url: await this.linkService.resolveOriginalUrl(shortCode),
+      statusCode: 302,
+    };
+  }
+}

@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from './shared/database/database.module';
 import Joi from 'joi';
+import { LinkModule } from './modules/link/link.module';
 
 @Module({
   imports: [
@@ -26,9 +27,12 @@ import Joi from 'joi';
         MONGO_PORT: Joi.number().port().required(),
         MONGO_DB: Joi.string().required(),
         MONGO_URI: Joi.string().uri().required(),
+
+        BASE_URL: Joi.string().uri().required(),
       }),
     }),
     DatabaseModule,
+    LinkModule,
   ],
   controllers: [],
   providers: [],

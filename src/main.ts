@@ -1,4 +1,8 @@
-import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
+import {
+  ClassSerializerInterceptor,
+  RequestMethod,
+  ValidationPipe,
+} from '@nestjs/common';
 import { NestFactory, Reflector } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
@@ -7,7 +11,9 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const prefix = 'api/v1';
 
-  app.setGlobalPrefix(prefix);
+  app.setGlobalPrefix(prefix, {
+    exclude: [{ path: ':shortCode', method: RequestMethod.GET }],
+  });
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
