@@ -24,6 +24,14 @@ export class LinkRepository implements LinkRepositoryPort {
     return await this.linkModel.findOne({ shortCode });
   }
 
+  async increaseClicks(shortCode: string): Promise<Link | null> {
+    return await this.linkModel.findOneAndUpdate(
+      { shortCode },
+      { $inc: { clickAmount: 1 } },
+      { new: true },
+    );
+  }
+
   private isDuplicateKeyError(error: unknown): error is MongoServerError {
     return error instanceof MongoServerError && error.code === 11000;
   }

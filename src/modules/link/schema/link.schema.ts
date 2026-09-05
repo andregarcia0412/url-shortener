@@ -8,6 +8,9 @@ export class Link {
   @Prop({ required: true, unique: true, index: true })
   shortCode!: string;
 
+  @Prop({ required: true, default: 0 })
+  clickAmount: number;
+
   createdAt!: Date;
 
   updatedAt!: Date;
