@@ -9,6 +9,7 @@ import { LinkServicePort } from './interface/link.service.port';
 import { CreateLinkUseCase } from './use-case/create.use-case';
 import { FindLinkByCodeUseCase } from './use-case/find.use-case';
 import { LinkRedirectController } from './controller/link-redirect.controller';
+import { ResolveLinkUrlUseCase } from './use-case/resolve-url.use-case';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { LinkRedirectController } from './controller/link-redirect.controller';
     { provide: LinkServicePort, useClass: LinkService },
     CreateLinkUseCase,
     FindLinkByCodeUseCase,
+    ResolveLinkUrlUseCase,
   ],
 })
 export class LinkModule {}

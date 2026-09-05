@@ -9,6 +9,9 @@ export class ReturnLinkDto {
   shortCode: string;
 
   @ApiProperty()
+  clickAmount: number;
+
+  @ApiProperty()
   createdAt: Date;
 
   @ApiProperty()
@@ -17,11 +20,13 @@ export class ReturnLinkDto {
   constructor(
     originalUrl: string,
     shortenedUrl: string,
+    clickAmount: number,
     createdAt: Date,
     updatedAt: Date,
   ) {
     this.originalUrl = originalUrl;
     this.shortCode = shortenedUrl;
+    this.clickAmount = clickAmount;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
   }
@@ -30,6 +35,7 @@ export class ReturnLinkDto {
     return new ReturnLinkDto(
       link.originalUrl,
       `${baseUrl}/${link.shortCode}`,
+      link.clickAmount,
       link.createdAt,
       link.updatedAt,
     );

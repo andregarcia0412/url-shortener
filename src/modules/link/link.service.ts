@@ -5,6 +5,7 @@ import { LinkServicePort } from './interface/link.service.port';
 import { CreateLinkUseCase } from './use-case/create.use-case';
 import { FindLinkByCodeUseCase } from './use-case/find.use-case';
 import { ConfigService } from '@nestjs/config';
+import { ResolveLinkUrlUseCase } from './use-case/resolve-url.use-case';
 
 @Injectable()
 export class LinkService implements LinkServicePort {
@@ -14,6 +15,8 @@ export class LinkService implements LinkServicePort {
     private readonly createLinkUseCase: CreateLinkUseCase,
     @Inject(FindLinkByCodeUseCase)
     private readonly findLinkByCodeUseCase: FindLinkByCodeUseCase,
+    @Inject(ResolveLinkUrlUseCase)
+    private readonly resolveLinkUrlUseCase: ResolveLinkUrlUseCase,
     private readonly configService: ConfigService,
   ) {
     this.baseUrl = configService.getOrThrow<string>('BASE_URL');
@@ -32,6 +35,6 @@ export class LinkService implements LinkServicePort {
     );
   }
   async resolveOriginalUrl(shortCode: string): Promise<string> {
-    return (await this.findLinkByCodeUseCase.execute(shortCode)).originalUrl;
+    return await this.resolveLinkUrlUseCase.execute(shortCode);
   }
 }
