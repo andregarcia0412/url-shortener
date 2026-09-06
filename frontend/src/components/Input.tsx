@@ -6,7 +6,7 @@ type InputProps = {
 export const Input = ({ text, setText }: InputProps) => {
   return (
     <input
-      className="flex items-center text-ink outline-none px-3 min-h-12 rounded-md bg-surface border border-divider hover:border-divider-hover focus:border-accent"
+      className="flex items-center text-ink outline-none px-3 min-h-12 rounded-md w-full bg-surface border border-divider hover:border-divider-hover focus:border-accent"
       type="text"
       placeholder="https://example.com/a/very/long/path"
       value={text}
