@@ -2,12 +2,42 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ShortyURL</title>
+
+    <title>ShortyURL — Shorten a link</title>
+    <meta
+      name="description"
+      content="Paste a URL and get an eight-character short link. No account, no setup, just the link."
+    />
+    <link rel="canonical" href="https://shortyurl.example.com/" />
+    <meta name="theme-color" content="#161826" />
+    <meta name="color-scheme" content="dark" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="ShortyURL" />
+    <meta property="og:title" content="ShortyURL — Shorten a link" />
+    <meta
+      property="og:description"
+      content="Paste a URL and get an eight-character short link. No account, no setup, just the link."
+    />
+    <meta property="og:url" content="https://shortyurl.example.com/" />
+    <meta property="og:locale" content="en_US" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="ShortyURL — Shorten a link" />
+    <meta
+      name="twitter:description"
+      content="Paste a URL and get an eight-character short link. No account, no setup, just the link."
+    />
   </head>
   <body>
     <div id="root"></div>
+    <noscript>
+      ShortyURL needs JavaScript to shorten links. Please enable it and reload
+      the page.
+    </noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

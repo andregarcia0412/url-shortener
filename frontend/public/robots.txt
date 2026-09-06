@@ -1,0 +1,12 @@
+# https://www.robotstxt.org/robotstxt.html
+
+# Short links live at /{8-char code} on this same domain and stay crawlable
+# on purpose: the redirect responds with `X-Robots-Tag: noindex, nofollow`,
+# and a crawler only sees that header if it is allowed to fetch the URL.
+# Disallowing them here would hide the header and let bare short URLs be
+# indexed anyway when they are linked from somewhere else.
+
+User-agent: *
+Disallow: /api/
+
+Sitemap: https://shortyurl.example.com/sitemap.xml
