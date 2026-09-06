@@ -9,9 +9,9 @@ export const Header = () => {
         className="select-none h-6 w-6"
         alt="logo"
       />
-      <h1 className="text-xl leading-none text-ink select-none [text-box:trim-both_cap_alphabetic]">
+      <span className="text-xl leading-none text-ink select-none [text-box:trim-both_cap_alphabetic]">
         ShortyURL
-      </h1>
+      </span>
     </header>
   );
 };

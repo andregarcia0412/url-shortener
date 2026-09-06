@@ -55,14 +55,21 @@ function App() {
 
           {!shortenedUrl ? (
             <article className="flex flex-col gap-2">
-              <div className="flex items-center gap-2">
+              <form
+                className="flex items-center gap-2"
+                onSubmit={(e) => {
+                  e.preventDefault;
+                  handleSubmit();
+                }}
+              >
                 <Input text={text} setText={setText} />
                 <Button
                   text="Shorten"
                   onClick={handleSubmit}
                   loading={loading}
+                  type="submit"
                 />
-              </div>
+              </form>
 
               {errorMessage && <ErrorMessage message={errorMessage} />}
             </article>
