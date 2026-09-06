@@ -5,6 +5,7 @@ import { Button } from "./components/Button";
 import { UrlSchema } from "./validations/url.schema";
 import { ErrorMessage } from "./components/ErrorMessage";
 import { LinkService } from "./api/link.service";
+import { ResultCard } from "./components/ResultCard";
 
 function App() {
   const [text, setText] = useState<string>("");
@@ -52,14 +53,25 @@ function App() {
             </p>
           </div>
 
-          <div className="flex flex-col gap-2">
-            <div className="flex items-center gap-2">
-              <Input text={text} setText={setText} />
-              <Button onClick={handleSubmit} loading={loading} />
-            </div>
+          {!shortenedUrl ? (
+            <article className="flex flex-col gap-2">
+              <div className="flex items-center gap-2">
+                <Input text={text} setText={setText} />
+                <Button
+                  text="Shorten"
+                  onClick={handleSubmit}
+                  loading={loading}
+                />
+              </div>
 
-            {errorMessage && <ErrorMessage message={errorMessage} />}
-          </div>
+              {errorMessage && <ErrorMessage message={errorMessage} />}
+            </article>
+          ) : (
+            <ResultCard
+              url={shortenedUrl}
+              onReturnClick={() => setShortenedUrl(null)}
+            />
+          )}
         </section>
       </main>
     </>
