@@ -1,3 +1,5 @@
+import ring from "../assets/ring.svg";
+
 type ButtonProps = {
   onClick: () => void;
   loading?: boolean;
@@ -12,7 +14,10 @@ export const Button = ({ onClick, loading = false }: ButtonProps) => {
       disabled={loading}
       onClick={onClick}
     >
-      Shorten
+      <div className="flex items-center justify-center gap-2">
+        {loading && <img src={ring} width={24} height={24} alt="loading" />}
+        <p>Shorten</p>
+      </div>
     </button>
   );
 };
