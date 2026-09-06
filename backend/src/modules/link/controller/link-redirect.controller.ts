@@ -1,6 +1,7 @@
 import {
   Controller,
   Get,
+  Header,
   HttpRedirectResponse,
   Inject,
   Param,
@@ -19,6 +20,7 @@ export class LinkRedirectController {
 
   @Get(':shortCode')
   @Redirect()
+  @Header('X-Robots-Tag', 'noindex, nofollow')
   @ApiTemporaryRedirectResponse()
   async redirect(
     @Param('shortCode', ShortCodePipe) shortCode: string,
